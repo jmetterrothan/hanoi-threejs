@@ -8,7 +8,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [new HtmlWebpackPlugin({
-    title: 'IA - TD1',
+    title: 'Hanoi threejs',
     template: 'src/assets/index.html'
   })],
   module: {
