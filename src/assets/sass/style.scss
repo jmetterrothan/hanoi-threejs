@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
+
+html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+canvas {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.ui {
+    z-index: 100;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    padding: 16px;
+    background: #252525;
+    border-radius: 2px;
+
+    &__title {
+        color: #dadada;
+        font-size: 18px;
+        font-weight: 900;
+        line-height: 24px;
+        margin-bottom: 16px;
+    }
+
+    &__group {
+        display: flex;
+        margin-bottom: 12px;
+
+        &:last-child {    
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            color: #b9b9b9;
+            font-size: 14px;
+            font-weight: 700;
+            margin-right: 24px;
+            white-space: nowrap;
+            line-height: 24px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: 24px;
+            border-radius: 2px;
+            border: none;
+            appearance: none;
+            outline: none;
+            background: #a5a5a5;
+            color: #505050;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+
+            &[type=number] {
+                width: 48px;
+                text-align: center;
+            }
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: 32px;
+            border-radius: 2px;
+            border: none;
+            appearance: none;
+            outline: none;
+            background: #c9c9c9;
+            color: #505050;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+
+            &:hover {
+                color: #252525;
+            }
+
+            &_start {
+                background: #068587;
+                color: #033F40;
+            }
+        
+            &_stop {
+                background: #ED553B;
+                color: #73291D;
+            }
+        }
+    }
+}
