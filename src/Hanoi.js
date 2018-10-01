@@ -123,11 +123,11 @@ class Hanoi {
                 this.animate(source, target);
                 this.timer = delta + 1250;
             }
+            
+            this.disks.A.forEach((disk) => disk.update(delta));
+            this.disks.B.forEach((disk) => disk.update(delta));
+            this.disks.C.forEach((disk) => disk.update(delta));
         }
-
-        this.disks.A.forEach((disk) => disk.update(delta));
-        this.disks.B.forEach((disk) => disk.update(delta));
-        this.disks.C.forEach((disk) => disk.update(delta));
 
         this.renderer.render(this.scene, this.camera);
     }
@@ -143,9 +143,9 @@ class Hanoi {
 
         if (disk) {
             disk.setTarget([
-                { x: pos.x, y: rodHeight + 3, z: pos.z, t: 250 },
-                { x: x, y: rodHeight + 3, z: z, t: 500 },
-                { x: x, y: y, z: z, t: 250 },
+                { ox: pos.x, oy: pos.y, x: pos.x, y: rodHeight + 3, z: pos.z, t: 250 },
+                { ox: pos.x, oy: pos.y, x: x, y: rodHeight + 3, z: z, t: 500 },
+                { ox: pos.x, oy: pos.y, x: x, y: y, z: z, t: 250 },
             ]);
             
             this.disks[target].push(disk);
