@@ -48,6 +48,8 @@ class HanoiDisk {
 
             if (delta >= this.timer) {
                 this.timer = null;
+                this.setPosition(x, y, z);
+
                 this.keyIndex++;
             }
         }
