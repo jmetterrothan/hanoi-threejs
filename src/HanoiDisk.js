@@ -37,8 +37,7 @@ class HanoiDisk {
     update(delta) {
         if (this.keys[this.keyIndex]) {
             const { x, y, z, t } = this.keys[this.keyIndex];
-            const dt = 0.25;
-            console.log(dt)
+            const dt = 0.3;
             this.object.position.x = utility.lerp(this.object.position.x, x, dt);
             this.object.position.y = utility.lerp(this.object.position.y, y, dt);
             this.object.position.z = utility.lerp(this.object.position.z, z, dt);
