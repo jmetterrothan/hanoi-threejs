@@ -37,6 +37,7 @@ class Hanoi {
         const $uiReloadBtn = document.querySelector('#uiReloadBtn');
         const $uiToggleBtn = document.querySelector('#uiToggleBtn');
         
+        // main events
         $uiReloadBtn.addEventListener('click', (e) => {
             this.stop();
             this.reload();
@@ -98,6 +99,7 @@ class Hanoi {
     simulate(diskNb) {
         const instructions = [];
 
+        // hanoi algo
         const hanoiAlgo = (n, source, target, auxiliary) => {
             if (n > 0) {
                 hanoiAlgo(n - 1, source, auxiliary, target);
