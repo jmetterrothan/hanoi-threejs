@@ -5,6 +5,9 @@ import './OrbitControls';
 import HanoiDisk from './HanoiDisk';
 import HanoiRod from './HanoiRod';
 
+/**
+ * Hanoi scene
+ */
 class Hanoi {
     constructor() {
         this.scene = null;
@@ -12,15 +15,29 @@ class Hanoi {
         this.renderer = null;
         this.controls = null;
 
+        // number of disks
         this.diskNb = 3;
 
-        this.disks = {};
+        // object that represents the hanoi towers
+        this.disks = {
+            'A': [],
+            'B': [],
+            'C': []
+        };
+
+        // list of precalculated animations
         this.animations = [];
 
+        // timer reference for timing the animations
         this.timer = null;
+
+        // state of the animation (play/pause)
         this.running = false;
     }
     
+    /**
+     * Main initialization of the scene
+     */
     init() {
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -82,6 +99,10 @@ class Hanoi {
         });
     }
 
+    /**
+     * Loads a scene
+     * @param {number} n Number of disks
+     */
     load(n = 3) {
         this.diskNb = n;
         this.timer = null;
@@ -92,10 +113,18 @@ class Hanoi {
         this.prepScene(n);
     }
 
+    /**
+     * Reloads the scene with the current parameters
+     */
     reload() {
         this.load(this.diskNb);
     }
 
+    /**
+     * Simulate the towers of hanoi algo
+     * @param {number} diskNb 
+     * @return {Array} List of disk movements
+     */
     simulate(diskNb) {
         const instructions = [];
 
@@ -119,6 +148,7 @@ class Hanoi {
         this.controls.update();
 
         if (this.running) {
+            // unstack animations one by one each 1.25s
             if(this.animations.length > 0 && (this.timer === null || delta >= this.timer)) {
                 const { source, target } = this.animations.shift();      
 
@@ -126,6 +156,7 @@ class Hanoi {
                 this.timer = delta + 1250;
             }
             
+            // update disk positions
             this.disks.A.forEach((disk) => disk.update(delta));
             this.disks.B.forEach((disk) => disk.update(delta));
             this.disks.C.forEach((disk) => disk.update(delta));
@@ -134,15 +165,22 @@ class Hanoi {
         this.renderer.render(this.scene, this.camera);
     }
 
+    /**
+     * Animate a disk from a source position to a target position
+     * @param {string} source Source stack name
+     * @param {string} target Target stack name
+     */
     animate(source, target) {
         const targetOffset = target.charCodeAt(0) - 65;
 
+        // calculate a slot coordinates on the scene (a torus position on a rode)
         const { x, y, z } = this.getSlotPosition(this.disks[target].length, targetOffset);
 
         const disk = this.disks[source].pop();
         const pos = disk.getPosition();
         const rodHeight = this.getRodHeight();
 
+        // set disk animation keys
         if (disk) {
             disk.setTarget([
                 { ox: pos.x, oy: pos.y, x: pos.x, y: rodHeight + 3, z: pos.z, t: 250 },
@@ -154,6 +192,10 @@ class Hanoi {
         }
     }
 
+    /**
+     * Create all scene elements (base, rodes, disks)
+     * @param {number} diskNb Number of disks
+     */
     prepScene(diskNb) {
         const gap = this.getGapSize();
         const rodHeight = this.getRodHeight();
